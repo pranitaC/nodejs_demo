@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  background: #ffffff;
+}
+
+.container {
+  width: 1180px;
+  margin: auto;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#header2 {  
+  background: green;
+  padding: 50px;
+}
+
+.menu {
+  width: 100px;
+  float: right;
+}
+
+.clr{
+  clear: both;
+}
