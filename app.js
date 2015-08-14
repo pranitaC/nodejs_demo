@@ -28,7 +28,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 app.use('/', site);
 app.use('/', users);
-app.use('/', products);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
