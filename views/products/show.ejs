@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title>Demo App</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"></link>
+  </head>
+  <body>
+    <div class="container">
+      <%- include('../layouts/header') %>
+      <div>
+        <div>Name: <%= product.name %></div>
+        <div>Email: <%= product.price %></div>		
+      </div>
+      <div>
+        <a href="/products">Back</a> | <a href="/products/<%= product._id %>/edit">Edit</a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+<% var url = product.isNew ? "/products" : "/products/"+product._id+"?_method=PUT" %>
+<form action="<%= url %>" method="POST">
+  <div>
+    <label>Name:</label>
+    <input type="text" name="product[name]" value="<%= product.name %>"><br/><br/>
+  </div>
+  <div>
+    <label>Price:</label>
+    <input type="text" name="product[price]" value="<%= product.price %>"><br/><br/>
+  </div>
+  <div>
+    <input type="submit" value="<%= product.isNew ? "Create" : "Update" %>"/>
+  </div>
+</form>
