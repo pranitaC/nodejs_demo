@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>Demo App</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"></link>
+  </head>
+  <body>
+    <div class="container">
+      <%- include('../layouts/header') %>
+      <div>
+        <div>Name: <%= user.name %></div>
+        <div>Email: <%= user.email %></div>		
+        <div>Phone: <%= user.phone %></div>
+        <div>Age : <%= user.age %></div>
+        <div>Gender : <%= user.gender %></div>
+      </div>
+      <div>
+        <a href="/users">Back</a> | <a href="/users/<%= user._id %>/edit">Edit</a>
+      </div>
+    </div>
+  </body>
+</html>
