@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Demo App</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"></link>
+  </head>
+  <body>
+    <div class="container">
+      <%- include('../layouts/header') %>
+      <div id="header1">
+        <h1> Welcome </h1>
+      </div>
+      <%- include('../users/signup') %>
+      <img src="/images/team.jpg" alt="team" width="300" style="float:right"/>
+      <table border="1" style="width:50%">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>		
+          <th>Phone</th>
+        </tr>
+        <tr>
+          <td>Prashant</td>
+          <td>prashant@jombay.com</td>		
+          <td>9096022828</td>
+        </tr>
+        <tr>
+          <td>java</td>
+          <td>ruby</td>		
+          <td>rails</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
