@@ -1,8 +1,41 @@
-<h4>Sign Up</h4>
-<form>
-  User name:<br>
-  <input type="text" name="username"><br>
-  password:<br>
-  <input type="password" name="pswd"><br><br>
-  <input type="submit">
-</form>
+<html>
+  <head>
+    <title>Demo App</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"></link>
+  </head>
+  <body>
+    <div class="container">
+      <%- include('../layouts/header') %>
+      <h4>Register</h4>
+      <form action="/register" method="post">
+        <% if(message && message.error){ %>
+          <div class="error">
+            <%= message.error %>
+          </div>
+        <% } %>
+        <div class="field">
+          <label>Username:</label>
+          <input type="text" name="username"/>
+        </div>
+        <div class="field">
+          <label>Password:</label>
+          <input type="password" name="password"/>
+        </div>
+        <div class="field">
+          <label>Name:</label>
+          <input type="text" name="name"/>
+        </div>
+        <div class="field">
+          <label>Email:</label>
+          <input type="text" name="email"/>
+        </div>
+        <div class="field">
+          <input type="submit" value="Sign Up"/>
+        </div>
+      </form>
+      <div>
+        <a href="/users">Back</a>
+      </div>
+    </div>
+  </body>
+</html>

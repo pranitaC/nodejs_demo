@@ -1,15 +1,27 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     
     <title>Demo App</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css"></link>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"></link>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="/javascripts/html5shiv.min.js"></script>
+      <script src="/javascripts/respond.min.js"></script>
+    <![endif]-->
   </head>
   <body>
+    <%- include('../layouts/bootstrap_header') %>
     <div class="container">
-      <%- include('../layouts/header') %>
-      <h4>Edit User</h4>
-      <%- include('./form') %>
-      <div>
-        <a href="/users">Back</a>
+      <div class="row">
+        <div class="col-lg-8">
+          <%- include("form.ejs") %>
+        </div>
       </div>
     </div>
   </body>

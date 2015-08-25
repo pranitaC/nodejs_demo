@@ -1,31 +1,105 @@
 <% var url = user.isNew ? "/users" : "/users/"+user._id+"?_method=PUT" %>
-<form action="<%= url %>" method="POST">
-  <div>
-    <label>Name:</label>
-    <input type="text" name="user[name]" value="<%= user.name %>"><br/><br/>
+<form action="<%= url %>" method="POST" class="form-horizontal">
+  <div class="form-group">
+    <label class="col-lg-offset-2">
+      <h2>
+        Edit User
+      </h2>
+    </label>
   </div>
-  <div>
-    <label>Email:</label>
-    <input type="text" name="user[email]" value="<%= user.email %>"><br/><br/>
+  <div class="form-group">
+    <% if(error) { %>
+      <label class="control-label">
+        <%= error.message %>
+      </div>
+    <% } %>
   </div>
-  <div>
-    <label>Phone:</label>
-    <input type="text" name="user[phone]" value="<%= user.phone %>"><br/><br/>
+  <div class="form-group">
+    <label class="col-lg-2 control-label">Name:</label>
+    <div class="col-lg-8">
+      <input type="text" id="input_name" name="user[name]" value="<%= user.name %>" class="form-control"/>
+    </div>
   </div>
-  <div>
-    <label>Age:</label>
-    <input type="text" name="user[age]" value="<%= user.age %>"><br/><br/>
+  <div class="form-group">
+    <label class="col-lg-2 control-label">Email Id:</label>
+    <div class="col-lg-8">
+      <input type="text" id ="input_email" name="user[email]" value="<%= user.email %>" class="form-control"/>
+    </div> 
   </div>
-  <div>
-    <label>Gender:</label>
-    <select name="user[gender]">
-      <option value=''>Select Gender</option>
-      <option value='m' <%= user.gender == 'm' ? "selected='selected'" : "" %>>Male</option>
-      <option value='f' <%= user.gender == 'f' ? "selected='selected'" : "" %>>Female</option>
-    </select>
-    <br/><br/>
+  <div class="form-group">
+    <label class="col-lg-2 control-label">Mobile No:</label>
+    <div class="col-lg-8">
+      <input type="text" id ="input_phone" name="user[phone]" value="<%= user.phone %>" class="form-control"/>
+    </div>  
   </div>
-  <div>
-    <input type="submit" value="<%= user.isNew ? "Create" : "Update" %>"/>
+  <div class="form-group">
+    <label class="col-lg-2 control-label">Age:</label>
+    <div class="col-lg-8">
+      <input type="text"  id ="input_age" name="user[age]" value="<%= user.age %>" class="form-control"/>
+    </div>  
+  </div>
+  <div class="form-group">
+    <label class="col-lg-2 control-label">Gender:</label>
+    <div class="col-lg-8">
+      <select name="user[gender]" id = "select_gender" class="form-control">
+        <option value=''>Select Gender</option>
+        <option value='m' <%= user.gender == 'm' ? "selected='selected'" : "" %>>Male</option>
+        <option value='f' <%= user.gender == 'f' ? "selected='selected'" : "" %>>Female</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-lg-10">
+      <input class= "btn btn-lg btn-success pull-right" type="submit" value="<%= user.isNew ? "Create" : "Update" %>"/>
+    </div>
   </div>
 </form>
+
+<script src="/javascripts/jquery.js"></script>
+<script src="/javascripts/jquery_ujs.js"></script>
+<script type="text/javascript">
+  var age = 0;
+  jQuery('.form-submit').on('click', function(e){
+      e.preventDefault();
+      var isValid = true;
+      jQuery(".error").html("");
+      if(jQuery("#input_name").val() == "") {
+        jQuery(".error").append("<div>Please enter name.</div>");
+        isValid = false;
+      }
+      
+      var emailString = jQuery("#input_email").val();
+      if(emailString == "") {
+      jQuery(".error").append("<div>Please enter your Email Id.</div>");
+      isValid = false;
+      }else  if( /^[a-zA-Z0-9_@.-]+$/.test(emailString)==true){
+      jQuery(".error").append("<div>Valid Email Id.</div>");
+      }
+      else{
+      jQuery(".error").append("<div>Please enter valid Email Id.</div>");
+      }
+      
+      var phoneString = jQuery("#input_phone").val();
+      if(phoneString == "") {
+      jQuery(".error").append("<div>Please enter your Mobile No.</div>");
+      isValid = false;
+      } else if(phoneString.length != 10){
+      jQuery(".error").append("<div>Please enter 10 digit Mobile No.</div>");
+      isValid = false;
+      }
+      
+      var ageString = jQuery("#input_age").val();
+      if(ageString == "") {
+      jQuery(".error").append("<div>Please enter your age.</div>");
+      isValid = false;
+      }
+      if(jQuery("#select_gender").val() == 0) {
+      jQuery(".error").append("<div>Please select your gender.</div>");
+      isValid = false;
+      }
+      if(isValid) {
+      jQuery(".form").submit();
+    }
+    return true;
+});
+</script>
