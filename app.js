@@ -54,7 +54,6 @@ app.use(function(req, res, next){
 
 app.use('/', site);
 app.use('/', users);
-app.use('/', products);
 
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
