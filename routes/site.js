@@ -16,5 +16,9 @@ router.get('/page2', function(req, res, next) {
   res.render('site/page2');
 });
 
+router.get('/demo', function(req, res, next) {
+  res.render('site/demo');
+});
+
 
 module.exports = router;

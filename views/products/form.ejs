@@ -1,14 +1,55 @@
 <% var url = product.isNew ? "/products" : "/products/"+product._id+"?_method=PUT" %>
-<form action="<%= url %>" method="POST">
-  <div>
+<form action="<%= url %>" method="POST" class="form">
+  <%= console.log(error) %>
+  <div class="field error">
+    <% if(error) { %>
+      <%= error.message %>
+    <% } %>
+  </div>
+  <div class="field">
     <label>Name:</label>
-    <input type="text" name="product[name]" value="<%= product.name %>"><br/><br/>
+    <input type="text" name="product[name]" id="input_name" value="<%= product.name %>"><br/><br/>
   </div>
-  <div>
+  <div class="field">
     <label>Price:</label>
-    <input type="text" name="product[price]" value="<%= product.price %>"><br/><br/>
+    <input type="text" name="product[price]" id="input_price" value="<%= product.price %>"><br/><br/>
   </div>
-  <div>
-    <input type="submit" value="<%= product.isNew ? "Create" : "Update" %>"/>
+  <div class="field">
+    <input class="form-submit" type="submit" value="<%= product.isNew ? "Create" : "Update" %>"/>
   </div>
 </form>
+<script src="/javascripts/jquery.js"></script>
+<script src="/javascripts/jquery_ujs.js"></script>
+<script type="text/javascript">
+  var price = 0;
+  jQuery('.form-submit').on('click', function(e){
+    e.preventDefault();
+    var isValid = true;
+    jQuery(".error").html("");
+    if(jQuery("#input_name").val() == "") {
+      jQuery(".error").append("<div>Please enter name.</div>");
+      isValid = false;
+    }
+    var priceString = jQuery("#input_price").val();
+    if(priceString == "") {
+      jQuery(".error").append("<div>Please enter price.</div>");
+      isValid = false;
+    }
+    try{
+      price = parseInt(priceString);
+      if(isNaN(price)) {
+        jQuery(".error").append("<div>Price is invalid.</div>");
+        isValid = false;
+      } else {
+        jQuery("#input_price").val(price);
+      }
+    } catch(e) {
+      jQuery(".error").append("<div>Price is invalid.</div>");
+      isValid = false;
+    }
+    if(isValid) {
+      jQuery(".form").submit();
+    }
+    return true;
+  });
+</script>

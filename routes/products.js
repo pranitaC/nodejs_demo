@@ -16,7 +16,7 @@ router.get('/products', function(req, res, next) {
 
 
 router.get('/products/new', function(req, res, next){
-  res.render('products/new', { product: new Product() });
+  res.render('products/new', { product: new Product(), error: null });
 });
 
 
@@ -26,7 +26,7 @@ router.post('/products', function(req, res){
   product1.save(function (err) {
     if (err){
       console.log(err);
-      res.render('products/new');
+      res.render('products/new', { product: product1, error: err });
     } else {
       console.log('Product created...');
       res.redirect('/products/'+product1._id);
@@ -52,24 +52,28 @@ router.get('/products/:id/edit', function(req, res, next){
     if(err) {
       res.redirect('/products');
     } else {
-      res.render('products/edit', { product: product });
+      res.render('products/edit', { product: product, error: null });
     }
   });
 });
 
 router.put('/products/:id', function(req, res){
   console.log(req.body.product);
-  var product = new Product(req.body.product);
-  product._id = req.params['id'];
-  Product.update({ _id: req.params['id'] }, req.body.product, {}, function (err, raw) {
-    if (err){
-      console.log(err);
-      res.render('products/edit', { product: product });
+  Product.findOne({ _id: req.params['id'] }, function(err, product){
+    if(err) {
+      res.redirect('/products');
     } else {
-      console.log('Product details updated...');
-      console.log(raw);
-      res.redirect('/products/'+product._id);
-    }
+      Product.update({ _id: req.params['id'] }, req.body.product, {}, function (err, raw) {
+        if (err){
+          console.log(err);
+          res.render('products/edit', { product: product, error: err });
+        } else {
+          console.log('Product details updated...');
+          console.log(raw);
+          res.redirect('/products/'+product._id);
+        }
+      });
+    } 
   });
 });
 
