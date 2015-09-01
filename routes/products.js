@@ -1,13 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var Product = require('../models/product');
+var multer  = require('multer')
+var upload = multer({ dest: 'public/uploads/products/' })
 
 function showProducts(res, err, productsList){
   res.render('products/index', { records: productsList });
 }
 
 
-/* GET users index page. */
+/* GET products index page. */
 router.get('/products', function(req, res, next) {
   Product.find({}, function(err, products){
     showProducts(res, err, products);
@@ -20,8 +22,11 @@ router.get('/products/new', function(req, res, next){
 });
 
 
-router.post('/products', function(req, res){
-  console.log(req.body.product);
+router.post('/products',upload.single('photo'), function(req, res){
+  console.log(req.file);
+  if(req.file) {
+    req.body.product.image_url = "/uploads/products/"+req.file.filename;
+  }
   var product1 = new Product(req.body.product);
   product1.save(function (err) {
     if (err){
@@ -57,12 +62,15 @@ router.get('/products/:id/edit', function(req, res, next){
   });
 });
 
-router.put('/products/:id', function(req, res){
-  console.log(req.body.product);
+router.put('/products/:id',upload.single('photo'), function(req, res){
+  console.log(req.file);
   Product.findOne({ _id: req.params['id'] }, function(err, product){
     if(err) {
       res.redirect('/products');
     } else {
+      if(req.file) {
+        req.body.product.image_url = "/uploads/products/"+req.file.filename;
+      }
       Product.update({ _id: req.params['id'] }, req.body.product, {}, function (err, raw) {
         if (err){
           console.log(err);

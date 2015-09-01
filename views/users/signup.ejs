@@ -1,40 +1,69 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        
     <title>Demo App</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"></link>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css"></link>
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="/javascripts/html5shiv.min.js"></script>
+      <script src="/javascripts/respond.min.js"></script>
+    <![endif]-->
+    
   </head>
+  
   <body>
     <div class="container">
-      <%- include('../layouts/header') %>
-      <h4>Register</h4>
-      <form action="/register" method="post">
+      <%- include('../layouts/bootstrap_header') %>
+      <br><h4>Register</h4></br>
+      <form action="/register" method="post" class="form-horizontal">
         <% if(message && message.error){ %>
           <div class="error">
             <%= message.error %>
           </div>
         <% } %>
-        <div class="field">
-          <label>Username:</label>
-          <input type="text" name="username"/>
+        
+        <div class="form-group">
+          <label class="col-lg-2 control-label">Username:</label>
+            <div class="col-lg-8">
+              <input type="text" name="username" class="form-control"/>
+            </div>
         </div>
-        <div class="field">
-          <label>Password:</label>
-          <input type="password" name="password"/>
+        
+        <div class="form-group">
+          <label class="col-lg-2 control-label">Password:</label>
+            <div class="col-lg-8">
+              <input type="password" name="password" class="form-control"/>
+            </div>
         </div>
-        <div class="field">
-          <label>Name:</label>
-          <input type="text" name="name"/>
+        
+        <div class="form-group">
+          <label class="col-lg-2 control-label">Name:</label>
+            <div class="col-lg-8">
+              <input type="text" name="name" class="form-control"/>
+            </div>
         </div>
-        <div class="field">
-          <label>Email:</label>
-          <input type="text" name="email"/>
+        
+        <div class="form-group">
+          <label class="col-lg-2 control-label">Email:</label>
+            <div class="col-lg-8">
+              <input type="text" name="email" class="form-control"/>
+            </div>
         </div>
-        <div class="field">
-          <input type="submit" value="Sign Up"/>
+        
+        <div class="form-group">
+          <input class= "btn btn-info btn-success pull-right" type="submit" value="Sign Up"/>
         </div>
       </form>
       <div>
-        <a href="/users">Back</a>
+        <a href="/" class="btn btn-info">Back</a>
       </div>
     </div>
   </body>

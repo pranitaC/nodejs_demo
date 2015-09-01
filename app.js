@@ -5,7 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
-
 /* Passport User Authentication Imports */
 var flash = require('connect-flash');
 var session = require('express-session');
@@ -54,6 +53,7 @@ app.use(function(req, res, next){
 
 app.use('/', site);
 app.use('/', users);
+app.use('/', products);
 
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
