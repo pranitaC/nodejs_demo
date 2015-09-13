@@ -11,7 +11,8 @@ var User = new Schema({
   age: String,
   gender: String,
   username: String,
-  password: String
+  password: String,
+  image_url: String
 });
 
 User.plugin(passportLocalMongoose);

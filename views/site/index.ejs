@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <title>Demo App</title>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"></link>
      <link rel="stylesheet" type="css/text" href="/stylesheets/bootstrap.css"></link>
+     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"></link>
      
      <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,7 +20,49 @@
   <body>
     <%- include('../layouts/bootstrap_header') %>
     <div class="container">
-      <br><img src="/images/team.jpg" alt="team" width="300" style="float:right"/></br>
+      <div class="row">
+        <div class="col-lg-8">
+          <h2>Welcome to myapp</h2> 
+        </div>
+        <div class="col-lg-4">
+          <h2>My Products</h2>
+          <div id="products">
+          </div>
+        </div>
+      </div>
     </div>
+    <script src="/javascripts/jquery.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery_ujs.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var error = null;
+      jQuery(document).ready(function(){
+        //alert("document ready"); 
+        jQuery.ajax({
+          type: "GET",
+          url: "/products",
+          dataType: "json",
+          success: function(response){
+            console.log(response);
+            if(response.err){
+              // handle serverside error
+              
+            } else {
+              // handle successfull response
+              var products = response.data;
+              jQuery.each(products, function(index, product){
+                console.log(product.name);
+                console.log(product.price);
+                jQuery("#products").append("<div class='row alert alert-error' style='border: 1px solid #ddd;'>" + product.name + ": " + product.price + "<br/></div>");
+              });
+            }
+          },
+          error: function(jqXhr, statusText , err){
+            error = err;
+            // handle other errors (404,500,502,503...)
+            console.log(error);
+          }
+        });
+      });
+    </script>
   </body>
 </html>

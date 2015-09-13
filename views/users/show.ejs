@@ -27,6 +27,7 @@
           <div>Phone: <%= user.phone %></div>
           <div>Age : <%= user.age %></div>
           <div>Gender : <%= user.gender %></div>
+          <div>Image: <img src="<%= user.image_url %>" width="200px"></div>		
         </div>
         <div>
           <br><a href="/users" class="btn btn-info">Back</a> | <a href="/users/<%= user._id %>/edit" class="btn btn-info">Edit</a></br>

@@ -4,8 +4,8 @@
       <a class="navbar-brand" href="#">My App</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="/page1">Home</a></li>
-      <li><a href="/page1">Contact</a></li>
+      <li class="active"><a href="/">Home</a></li>
+      <li><a href="/contact-us">Contact</a></li>
       <li><a href="/users">Users</a></li>
       <li><a href="/products">Products</a></li>
     </ul>
@@ -13,6 +13,8 @@
       <% if(auth.user) { %>
         <li><a href="javascript:void(0);">Hello <%= auth.user.name %></a></li>
         <li><a href="/logout">Sign out</a></li>
+        <% console.log(auth) %>
+        <li><img src="<%= auth.user.image_url %>" width="50" height="50"></li>
       <% } else { %>
         <li><a href="/register">Sign up</a></li>
         <li><a href="/login">Login</a></li>

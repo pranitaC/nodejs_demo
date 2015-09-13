@@ -4,15 +4,23 @@ var Product = require('../models/product');
 var multer  = require('multer')
 var upload = multer({ dest: 'public/uploads/products/' })
 
-function showProducts(res, err, productsList){
-  res.render('products/index', { records: productsList });
+function showProducts(req, res, err, productsList){
+  var is_ajax_request = req.xhr;
+  if(is_ajax_request){
+    res.json({ 
+      data: productsList,
+      err: err
+    });
+  } else {
+    res.render('products/index', { records: productsList }); 
+  }
 }
 
 
 /* GET products index page. */
 router.get('/products', function(req, res, next) {
   Product.find({}, function(err, products){
-    showProducts(res, err, products);
+    showProducts(req, res, err, products);
   });
 });
 

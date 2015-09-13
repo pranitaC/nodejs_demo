@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Demo App</title>
+    <link rel="stylesheet" type="css/text" href="/stylesheets/bootstrap.css"></link>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"></link>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="/javascripts/html5shiv.min.js"></script>
+      <script src="/javascripts/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <%- include('../layouts/bootstrap_header') %>
+    <div class="container">
+      <div class="row row-buffer">
+        <div class="col-lg-6 col-lg-offset-3">
+          <% if(show_form == true) { %>
+            <div class="row div-form">
+              <div class="row">
+                <h3>Contact Us</h3>
+              </div>
+              <div class="row">
+                <form action="/contact-us" id="contact_form" method="post">
+                  <div class="error" style="display:none;">
+                  </div>
+                  <div class="form-group">
+                    <label for="input_name">Name</label>
+                    <input type="text" name="contact[name]" class="form-control" id="input_name" placeholder="Name">
+                  </div>
+                  <div class="form-group">
+                    <label for="input_email">Email</label>
+                    <input type="email" name="contact[email]" class="form-control" id="input_email" placeholder="Email">
+                  </div>
+                  <div class="form-group">
+                    <label for="input_comment">Comment</label>
+                    <textarea id="input_comment" name="contact[comment]" class="form-control"></textarea>
+                  </div>
+                  <button type="submit" class="submit-btn btn btn-default">Submit</button>
+                  <img src="/images/loader.gif" style="display:none;" class="loader"/>
+                </form>
+              </div>  
+            </div>  
+          <% } else { %>
+            <div class="row">
+              <h3>Thank you for submitting your request. Our team will get back to you soon.</h3>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    <script src="/javascripts/jquery.js"></script>
+    <script src="/javascripts/jquery_ujs.js"></script>
+    <script type="text/javascript">
+      jQuery("#contact_form").submit(function(e){
+        e.preventDefault();
+        var formData = jQuery("#contact_form").serializeArray();
+        jQuery(".submit-btn").hide();
+        jQuery(".loader").show();
+        jQuery.ajax({
+          type: "POST",
+          url: "/contact-us",
+          data: formData,
+          success: function(response){
+            jQuery(".submit-btn").show();
+            jQuery(".loader").hide();
+            if(response.err) {
+              jQuery(".error").show();
+              var html = "<div class='alert alert-warning'>";
+              jQuery.each(response.err.errors, function(index, object){
+                html += object.message+"<br/>";
+              });
+              html += "</div>";
+              jQuery(".error").html(html);
+            } else {
+              jQuery(".div-form").html("<h3>Thank you for submitting your request. Our team will get back to you soon.</h3>");       
+            }
+          },
+          error: function(error){
+            jQuery(".submit-btn").show();
+            jQuery(".loader").hide();
+            jQuery(".error").html("<h3>"+error+"</h3>");
+          },
+          dataType: "json"
+        });
+        return false;
+      });
+    </script>
+  </body>
+</html>
