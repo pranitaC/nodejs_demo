@@ -42,7 +42,6 @@
           url: "/products",
           dataType: "json",
           success: function(response){
-            console.log(response);
             if(response.err){
               // handle serverside error
               
@@ -50,9 +49,19 @@
               // handle successfull response
               var products = response.data;
               jQuery.each(products, function(index, product){
-                console.log(product.name);
-                console.log(product.price);
-                jQuery("#products").append("<div class='row alert alert-error' style='border: 1px solid #ddd;'>" + product.name + ": " + product.price + "<br/></div>");
+                jQuery("#products").append("<div class='row alert alert-error' style='border: 1px solid #ddd;'>" +
+                  "<div class='pull-left'>"+ 
+                  product.name + ": " + product.price + 
+                  "</div><div class='pull-right'>"+
+                  "<a class='btn btn-info more-link-"+product._id+"'>More</a>"  +
+                  "</div>"+
+                  "<div class='clr'></div>"+
+                  "<div class='more-desc-"+product._id+" hide'><img width='200' src='"+ product.image_url +"'/></div><br/>"+
+                  "</div>"
+                );
+                jQuery(".more-link-"+product._id).click(function(){
+                  jQuery(".more-desc-"+product._id).toggleClass('hide');
+                });
               });
             }
           },
